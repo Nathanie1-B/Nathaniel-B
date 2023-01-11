@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> Skii Pee </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+var Background = new sjs.Image("Images/Snow2.png");
+	Background.setSize(500,400);
+//Player
+var Player = new sjs.Image("Images/ski1.png");
+	Player.type = "player";
+    Player.setSize(50,50);
+    Player.center();
+    Player.friction = 0.3;
+    Player.accel = 0.6;
+//Controls
+sjs.keyDown(A_KEY, function(){
+	Player.pushLeft();
+	Player.setImage("Images/Ski1.png");
+});
+sjs.keyDown(D_KEY, function(){
+	Player.pushRight();
+	Player.setImage("Images/Ski2.png");
+});
+sjs.keyDown(LEFT_KEY, function(){
+	Player.pushLeft();
+	Player.setImage("Images/Ski1.png");
+});
+sjs.keyDown(RIGHT_KEY, function(){
+	Player.pushRight();
+	Player.setImage("Images/Ski2.png");
+});
+//The Pee
+var Pee = new sjs.Image("Images/pee.png");
+	Pee.type = "boss";
+    Pee.setSize(50,50);
+    Pee.moveTo(0, 60);
+    Pee.friction = 0.3;
+    Pee.accel = 0.6;
+//Pee Movement
+ setInterval(function(){
+ 	Pee.moveTo(Player.x, 60);
+});
+//Pee Puddles
+setInterval(function(){
+var Puddle = new sjs.Image("Images/puddle.png");
+	Puddle.type = "enemy";
+	Puddle.setSize(50,50);
+	Puddle.moveTo(Math.random() * 500, 400);
+	Puddle.friction = 0.3;
+    Puddle.accel = 0.6;
+    setInterval(function(){
+    Puddle.pushUp();
+    },100);
+},1000);
+
+//Trees
+setInterval(function(){
+var Tree = new sjs.Image("Images/pine.png");
+	Tree.type = "tree";
+	Tree.setSize(50,50);
+	Tree.moveTo(Math.random() * 500, 400);
+	Tree.friction = 0.3;
+    Tree.accel = 0.6;
+    setInterval(function(){
+    Tree.pushUp();
+    },100);
+},1000);
+
+//onHits
+sjs.onHit("player", "enemy", function(x,y){
+    x.pushUp();
+    y.destroy();
+});
+
+sjs.onHit("player", "boss", function(x,y){
+	window.location = "gameover.html";
+});
+
+sjs.onHit("player", "tree", function(x,y){
+	window.location = "gameover2.html";
+});
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Skii Pee </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>

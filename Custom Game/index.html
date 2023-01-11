@@ -1,0 +1,23 @@
+<html>
+<head>
+<title> Game Over </title>
+<script src="https://simplycodingcourses.com/files/simply.js"></script>
+<script>
+function start(){
+sjs.open("target",500,400);
+var Background = new sjs.Image("Images/Title.png")
+	Background.setSize(500,400);
+var button = new sjs.Button("Start", function(){
+	window.location = "Skii Pee.html";
+
+});
+button.moveTo(200,260);
+} //end start
+</script>
+</head>
+<body onload="start()">
+<h1> Game Over </h1>
+
+<div id="target" style="margin:auto;background:grey;"></div>
+</body>
+</html>
